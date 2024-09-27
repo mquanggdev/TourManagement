@@ -6,3 +6,12 @@ block main
     .row
       .col-12
         +box-head(pageTitle)
+    .row
+      each item in categories
+        .col-6.mb-3
+          div(class="card")
+            img(src=item.image alt=item.title)
+            div(class="card-body")
+              h5(class="card-title") #{item.title}
+              p(class="card-text") #{item.description}
+              a(href=`/tours/${item.slug}` class="btn btn-primary") Xem chi tiết

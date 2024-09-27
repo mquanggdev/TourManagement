@@ -6,7 +6,7 @@ app.set('views' , `${__dirname}/views`);
 app.set('view engine' , 'pug');
 
 app.get("/tours" , (req:Request , res : Response) => {
-    res.send("Danh sach tour");
+    res.render("client/pages/tours/index.pug");
 })
 
 app.listen(port, () => {

@@ -10,8 +10,10 @@ block main
       each item in tours
         .col-6.mb-3
           div(class="card")
-            img(src=item.images alt=item.title)
+            img(src=item.image alt=item.title)
             div(class="card-body")
               h5(class="card-title") #{item.title}
-              p(class="card-text") #{item.description}
-              a(href=`/songs/${item.slug}` class="btn btn-primary") Xem chi tiết
+              b(class="mr-2 mb-2") #{item.price_special.toLocaleString()}Đ
+              del(class="mb-2") #{item.price.toLocaleString()}Đ
+              p(class="font-weight-bold") Giảm #{item.discount}%
+              a(href=`/tours/detail/${item.slug}` class="btn btn-primary") Xem chi tiết

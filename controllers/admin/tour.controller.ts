@@ -6,7 +6,7 @@ import { Request , Response } from "express";
 import { QueryTypes } from "sequelize";
 import { generateTourCode } from "../../helpers/generate.helper";
 import slugify from "slugify";
-import TourCategory from "../../models/tour-category.mode";
+import TourCategory from "../../models/tour-category.model";
 import { systemConfig } from "../../config/system";
 
 // GET /admin/tours/
@@ -82,3 +82,91 @@ export const createPost = async (req:Request , res : Response) => {
     
     res.redirect(`/${systemConfig.prefixAdmin}/tours`) ;
 }
+
+
+// GET /admin/detail/:id 
+export const detail = async ( req : Request , res : Response ) => {
+    const tourID = req.params.id;
+    console.log(tourID);
+    const tourCur = await Tour.findOne({
+        where : {
+            id : tourID,
+            deleted : false ,
+            status : "active"
+        } ,
+        raw : true
+    }) ;
+
+        if(tourCur["images"]){
+            const images = JSON.parse(tourCur["images"]);
+            tourCur["imagess"] = images ;
+        }       
+        tourCur["price_special"] = (1 - tourCur["discount"] / 100) * tourCur["price"] ;
+        tourCur["price_special"] = parseInt(tourCur["price_special"]);
+        console.log(tourCur);
+        
+    res.render("admin/pages/tours/detail.pug" , {
+        pageTitle :"Chi tiết tour" ,
+        tour : tourCur 
+    });
+}
+
+// GET / admin/edit/:id
+
+export const edit = async ( req : Request ,res : Response ) => {
+    try{
+    const tourID = req.params.id ;
+    const tour = await Tour.findOne({
+        where : {
+            id : tourID , 
+            deleted:false ,
+            status: "active"
+        },
+        raw : true
+    }) ;
+
+    const categories = await Category.findAll({
+        where : {
+            deleted: false ,
+            status : "active",
+        },
+        raw : true
+    })
+        
+            const tourCategory = await TourCategory.findOne({
+                where : {
+                    tour_id : tourID
+                },
+                raw: true
+            })
+            console.log(tourCategory);
+
+            const category = await Category.findOne({
+                where : {
+                    id : tourCategory["category_id"]
+                },
+                raw : true 
+            })
+            console.log(category);
+                const infoDisplay = {
+                    title : tour["title"],
+                    categoryCur: category["title"],
+                    images : tour["images"] ,
+                    price : tour["price"] ,
+                    discount : tour["discount"] ,
+                    stock : tour["stock"] ,
+                    timeStart : tour["timeStart"],
+                    position : tour["position"], 
+                    status : tour["status"]
+                }
+            res.render("admin/pages/tours/detail.pug" , {
+                pageTitle :"Chi tiết tour" , 
+            });
+    } catch (error) {
+        console.log("Lỗi khi truy cập vào tourCategory");
+    }
+}
+
+//post/admin/edit/:id
+
+// patch/admin/delete/:id

@@ -12,9 +12,9 @@ const sequelize = new Sequelize(
   }
 );
 sequelize.authenticate().then(() => {
-  console.log('Connection has been established successfully.');
+  console.log('Kết Nối Thành Công');
 }).catch((error) => {
-  console.error('Unable to connect to the database: ', error);
+  console.error('Đã Xảy ra Lỗi: ', error);
 });
 
 export default sequelize ;

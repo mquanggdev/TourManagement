@@ -1,0 +1,66 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  h1(class="mb-4") Chi tiết Tour
+
+  .card
+    .card-header Thông tin chi tiết
+    .card-body
+      .row
+        .col-6
+          .mb-3
+            strong Tiêu đề: 
+            span #{tour.title}
+          .mb-3
+            strong Giá: 
+            span #{tour.price.toLocaleString()}đ
+          .mb-3
+            strong Giá đặc biệt: 
+            span #{tour.price_special.toLocaleString()}đ
+          .mb-3
+            strong Giảm giá: 
+            span #{tour.discount}%
+          .mb-3
+            strong Số lượng còn lại: 
+            span #{tour.stock}
+        .col-6
+          .mb-3
+            strong Trạng thái: 
+            if (tour.status === "active")
+              span.badge.badge-success Hoạt động
+            else
+              span.badge.badge-danger Dừng hoạt động
+          .mb-3
+            strong Vị trí: 
+            span #{tour.position}
+          .mb-3
+            strong Ngày khởi hành: 
+            span #{tour.timeStart}
+          .mb-3
+            strong Mã Tour: 
+            span #{tour.code}
+          
+      .row
+        .col-12
+          .inner-image
+            each image in tour.imagess
+                img(
+                src=image
+                alt=tour.title
+                width="200px"
+                height="auto"
+                class="img-thumbnail"
+                style="margin-left : 10px"
+                )
+  
+  .mt-4
+    a(
+      href=`/${prefixAdmin}/tours/edit/${tour.id}`
+      class="btn btn-warning"
+    ) Sửa Tour
+    button(
+      class="btn btn-danger ml-2"
+      button-delete
+      data-id=tour.id
+    ) Xóa Tour

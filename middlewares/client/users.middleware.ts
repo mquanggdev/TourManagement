@@ -3,30 +3,32 @@ import Users from "../../models/users.model"; // Đảm bảo import đúng mode
 
 export const infoUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user = await Users.findOne({
-      where: {
-        tokenUser: req.cookies.tokenUser,
-        deleted: false,
-      },
-      raw: true,
-    });
+    if(req.cookies.tokenUser){
+      const user = await Users.findOne({
+        where: {
+          tokenUser: req.cookies.tokenUser,
+          deleted: false,
+        },
+        raw: true,
+      });
 
-    if (user) {
-      res.locals.user = user; 
-    } else {
-      res.locals.user = null;
+      if(user) {
+        res.locals.user = user
+      }else{
+        res.locals.user = null 
+      }
+     
     }
-
     next(); 
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    console.log(error);
   }
 };
 
 
-module.exports.requireAuth = async (req: Request, res: Response, next: NextFunction) => {
+export const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
   if(!req.cookies.tokenUser){
-    res.redirect("/user/login");
+    res.redirect("/users/login");
     return;
   }
 

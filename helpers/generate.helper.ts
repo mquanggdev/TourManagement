@@ -28,3 +28,13 @@ export const generateRandomString = (length) => {
 
   return result;
 };
+
+
+export const generateRandomNumber = (length) => {
+  const char = "0123456789" ;
+  let result = "" ;
+  for ( var i = 0 ; i < length ; i++ ){
+      result += char.charAt(Math.floor(Math.random() * char.length))
+  }
+  return result ;
+}

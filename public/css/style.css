@@ -206,3 +206,74 @@ Comment
   display: none;
 }
 /*end Comment*/
+
+
+header.header {
+  background-color: #f8f9fa; 
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+header .inner-logo img {
+  max-height: 50px; 
+}
+
+header .inner-menu ul.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+header .inner-menu ul.nav li.nav-item a.nav-link {
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+}
+
+header .user-info {
+  gap: 10px;
+}
+
+header .user-info .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; 
+  object-fit: cover;
+}
+
+header .user-info .username {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+header .user-info .logout-btn {
+  text-decoration: none;
+  color: #ff4d4f;
+  font-weight: 600;
+}
+
+header .user-info .logout-btn:hover {
+  text-decoration: underline;
+}
+header .auth-actions a {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+header .auth-actions a.register-btn {
+  color: #007bff; /* Màu xanh cho nút Đăng ký */
+  margin-right: 12px; /* Thêm khoảng cách giữa 2 nút */
+}
+
+header .auth-actions a.login-btn {
+  color: #28a745; /* Màu xanh lá cho nút Đăng nhập */
+}
+
+header .auth-actions a:hover {
+  text-decoration: underline;
+}

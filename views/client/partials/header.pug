@@ -5,12 +5,22 @@ header.header
         .inner-logo
           a(href="/tours/tour")
             img(src="/images/logo2.webp", alt="Logo")
-      .col-4
+      .col-6
         .inner-menu
-          ul
-            li
-              a(href="/tours/tour") Trang chủ
-            li
-              a(href="/categories") Danh mục
-            li
-              a(href="/cart") Giỏ hàng (<span mini-cart>0</span>)
+          ul.nav
+            li.nav-item
+              a.nav-link(href="/tours/tour") Trang chủ
+            li.nav-item
+              a.nav-link(href="/categories") Danh mục
+            li.nav-item
+              a.nav-link(href="/cart") Giỏ hàng (<span mini-cart>0</span>)
+      .col-3.text-end
+        if user
+          .user-info.d-flex.align-items-center.justify-content-end
+            img.avatar(src=user.avatar || "/images/default-avatar.webp", alt="Avatar")
+            a(href="/users/profile").username.ms-2 #{user.username}
+            a.logout-btn.ms-3(href="/users/logout") Đăng xuất
+        else
+          .auth-actions.d-flex.justify-content-end
+            a.register-btn.me-3(href="/users/register") Đăng ký
+            a.login-btn(href="/users/login") Đăng nhập

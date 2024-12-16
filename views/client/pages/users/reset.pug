@@ -1,0 +1,27 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.my-3
+    .row
+      .col-8.mx-auto
+        +box-head(pageTitle)
+
+        form(
+          action="/users/password/reset?_method=PATCH"
+          method="POST"
+        )
+          div(class="form-group")
+            label(for="passwordHash") Mật khẩu mới
+            input(
+              type="password"
+              class="form-control"
+              id="passwordHash"
+              name="passwordHash"
+              required
+            )
+          div(class="form-group")
+            button(
+              type="submit"
+              class="btn btn-primary btn-block"
+            ) Đổi mật khẩu

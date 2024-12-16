@@ -36,7 +36,7 @@ app.use(cookieParser());
 
 // parse application/json
 app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false })); // đọc trực tiếp từ form
+app.use(bodyParser.urlencoded({ extended: false })); // đọc trực tiếp từ form
 app.locals.prefixAdmin = systemConfig.prefixAdmin ;
 
 // Client route

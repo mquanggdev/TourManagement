@@ -161,3 +161,48 @@
   display: none;
 }
 /* End show-alert */
+
+
+/*
+Comment
+*/
+
+.comment-username, .reply-username {
+  font-weight: bold;
+}
+
+.comment-date, .reply-date {
+  font-size: 0.85em;
+  color: #6c757d;
+}
+
+.comment-rating i, .reply-rating i {
+  font-size: 1em;
+  margin-right: 0.1em;
+}
+
+.comment-content, .reply-content {
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+.user-avatar, .user-avatar-reply {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ddd;
+}
+
+.reply-form textarea {
+  font-size: 0.9em;
+}
+
+.add-comment-form textarea {
+  font-size: 1em;
+}
+.comment:hover .reply-form {
+  display: block;
+}
+.reply-form {
+  display: none;
+}
+/*end Comment*/

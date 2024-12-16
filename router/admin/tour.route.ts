@@ -12,4 +12,7 @@ router.get("/create" , controller.create);
 router.post("/create" ,upload.fields([{name : "images" ,maxCount : 10}]) ,
 uploadFields ,controller.createPost);
 router.get("/edit/:id" , controller.edit);
+router.patch("/edit/:id" ,upload.fields([{name : "images" ,maxCount : 10}]) ,
+uploadFields , controller.editPatch);
+router.patch("/delete/:id" , controller.deleteTour);
 export const tourRoute = router;

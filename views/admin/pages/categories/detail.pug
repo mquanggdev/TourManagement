@@ -1,0 +1,56 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  h1(class="mb-4") Chi tiết Danh Mục
+
+  .card
+    .card-header Thông tin chi tiết
+    .card-body
+      .row
+        .col-6
+          .mb-3
+            strong Tiêu đề: 
+            span #{category.title}
+          .mb-3
+            strong Mô tả: 
+            span #{category.description}
+          .mb-3
+            strong Vị trí: 
+            span #{category.position}
+        .col-6
+          .mb-3
+            strong Trạng thái: 
+            if (category.status === "active")
+              span.badge.badge-success Hoạt động
+            else
+              span.badge.badge-danger Dừng hoạt động
+          .mb-3
+            strong Ngày tạo: 
+            span #{category.createdAt.toLocaleDateString()}
+          .mb-3
+            strong Ngày cập nhật: 
+            span #{category.updatedAt.toLocaleDateString()}
+          
+      .row
+        .col-12
+          .inner-image
+            img(
+              src=category.image
+              alt=category.title
+              width="200px"
+              height="auto"
+              class="img-thumbnail"
+              style="margin-left : 10px"
+            )
+  
+  .mt-4
+    a(
+      href=`/${prefixAdmin}/categories/edit/${category.id}`
+      class="btn btn-warning"
+    ) Sửa Danh Mục
+    button(
+      class="btn btn-danger ml-2"
+      button-delete
+      data-id=category.id
+    ) Xóa Danh Mục

@@ -14,4 +14,5 @@ router.get("/edit/:id" , controller.edit);
 router.patch("/edit/:id" ,upload.single("image") ,
 uploadSingle , controller.editPatch)
 router.patch("/delete/:id" , controller.deleteCategory) ;
+router.get("/detail/:id" , controller.detail);
 export const categoryRoute = router;

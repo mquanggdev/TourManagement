@@ -146,3 +146,28 @@ export const deleteCategory = async (req:Request , res : Response) => {
     }
    
 }
+
+// Get / detail /categories/detail/:id
+
+export const detail = async (req:Request , res : Response) => {
+    try {
+        const id = req.params.id;
+        const category = await Category.findOne(
+            {
+                where : {
+                    id : id , 
+                    deleted : false 
+                } ,
+                raw : true
+            }
+        )
+        res.render("admin/pages/categories/detail.pug" ,{
+            pageTitle : "Trang chi tiết sản phẩm",
+            category : category
+        })
+    } catch (error) {
+        console.log(error);
+        
+    }
+   
+}

@@ -1,10 +1,10 @@
 extends ../../layouts/default.pug
 
 block main
-  h1(class="mb-4") Thêm mới
+  h1(class="mb-4") Chỉnh sửa tour
 
   form(
-    action=`/${prefixAdmin}/tours/create`
+    action=`/${prefixAdmin}/tours/edit/${tour.id}?_method=PATCH`
     method="POST"
     enctype="multipart/form-data"
   )
@@ -15,6 +15,7 @@ block main
         class="form-control"
         id="title"
         name="title"
+        value=tour.title
         required
       )
     div(class="form-group")
@@ -24,59 +25,65 @@ block main
           class="form-control"
           id="category"
         )
-            option(value="" disabled selected) --Danh Mục-- 
-            each item in categories
-                option(value=item.id) #{item.title} 
+          option(value="" disabled) --Danh Mục-- 
+          each item in categories
+              option(
+                value=item.id 
+                selected=(item.id == tourCategory.category_id ? true : false)
+              ) #{item.title}
     div(class="form-group")
-        label(for="images") Chọn nhiều ảnh
-        input(
-          type="file"
-          class="form-control-file"
-          id="images"
-          name="images"
-          accept="image/*"
-          multiple
-        )
+      label(for="images") Chọn nhiều ảnh
+      input(
+        type="file"
+        class="form-control-file"
+        id="images"
+        name="images"
+        accept="image/*"
+        multiple
+      )
+      div.mt-2
+        p Ảnh hiện tại:
+        each image in tour.images
+          img(src=image alt="Tour image" width="100" class="mr-2")
     div(class="form-group")
-        label(for="price") Giá
-        input(
-          type="number"
-          class="form-control"
-          id="price"
-          name="price"
-          value="0"
-          min="0"
-        )
+      label(for="price") Giá
+      input(
+        type="number"
+        class="form-control"
+        id="price"
+        name="price"
+        value=tour.price
+        min="0"
+      )
     div(class="form-group")
-        label(for="discount") % Giảm giá
-        input(
-            type="number"
-            class="form-control"
-            id="discount"
-            name="discountPercentage"
-            value="0"
-            min="0"
-        )
+      label(for="discount") % Giảm giá
+      input(
+        type="number"
+        class="form-control"
+        id="discount"
+        name="discountPercentage"
+        value=tour.discount
+        min="0"
+      )
     div(class="form-group")
-        label(for="stock") Số lượng
-        input(
-            type="number"
-            class="form-control"
-            id="stock"
-            name="stock"
-            value="0"
-            min="0"
-    )
+      label(for="stock") Số lượng
+      input(
+        type="number"
+        class="form-control"
+        id="stock"
+        name="stock"
+        value=tour.stock
+        min="0"
+      )
     div(class="form-group")
-        label(for="timeStart") Lịch khởi hành
-        input(
-          type="datetime-local"
-          class="form-control"
-          id="timeStart"
-          name="timeStart"
-          value="0"
-          min="0"
-        )
+      label(for="timeStart") Lịch khởi hành
+      input(
+        type="datetime-local"
+        class="form-control"
+        id="timeStart"
+        name="timeStart"
+        value=tour.timeStart
+      )
     div(class="form-group")
       label(for="information") Thông tin tour
       textarea(
@@ -84,7 +91,7 @@ block main
         id="information"
         name="information"
         textarea-mce
-      )
+      )= tour.information
     div(class="form-group")
       label(for="schedule") Lịch trình tour
       textarea(
@@ -92,7 +99,7 @@ block main
         id="schedule"
         name="schedule"
         textarea-mce
-      )
+      )= tour.schedule
     div(class="form-group")
       label(for="position") Vị trí
       input(
@@ -100,7 +107,7 @@ block main
         class="form-control"
         id="position"
         name="position"
-        placeholder="Tự động tăng"
+        value=tour.position
         min="1"
       )
     div(class="form-group form-check form-check-inline")
@@ -110,7 +117,7 @@ block main
         id="statusActive"
         name="status"
         value="active"
-        checked
+        checked=(tour.status == 'active' ? true : false)
       )
       label(for="statusActive" class="form-check-label") Hoạt động
     div(class="form-group form-check form-check-inline")
@@ -120,10 +127,11 @@ block main
         id="statusInActive"
         name="status"
         value="inactive"
+        checked=(tour.status == 'inactive' ? true : false)
       )
       label(for="statusInActive" class="form-check-label") Dừng hoạt động
     div(class="form-group")
       button(
         type="submit"
         class="btn btn-primary"
-      ) Tạo mới
+      ) Cập nhật

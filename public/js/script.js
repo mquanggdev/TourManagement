@@ -179,3 +179,84 @@ if(formOrder) {
   })
 }
 // Hết Đặt tour
+
+// show-alert
+const showAlert = document.querySelector("[show-alert]");
+if(showAlert) {
+  let time = showAlert.getAttribute("show-alert") || 3000;
+  time = parseInt(time);
+
+  setTimeout(() => {
+    showAlert.classList.add("hidden");
+  }, time);
+}
+// end show-alert
+
+// Đăng ký người dùng
+const formRegister = document.querySelector("[form-register]") ;
+if(formRegister) {
+  formRegister.addEventListener("submit" , (event) => {
+    event.preventDefault();
+
+    const dataUser = {
+      username: formRegister.username.value,
+      email : formRegister.email.value ,
+      passwordHash : formRegister.passwordHash.value 
+    } 
+    try {
+      fetch("/users/register" , {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials:"include",
+        body: JSON.stringify(dataUser)},
+        
+      )
+      .then(res => res.json())
+      .then(data => {
+        if(data.code == 200) {
+          window.location.href = `/tours/tour`;
+        }
+        console.log(data.newUser) ;
+      })
+    } catch (error) {
+      console.log(error);
+    }
+    
+  })
+}
+
+// đăng nhập 
+const formLogin = document.querySelector("[form-login]");
+if (formLogin) {
+  formLogin.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const dataUser = {
+      email: formLogin.email.value,
+      passwordHash: formLogin.passwordHash.value,
+    };
+
+    try {
+      const response = await fetch("/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataUser),
+      });
+
+      const data = await response.json();
+
+      if (data.code === 200) {
+        window.location.href = `/tours/tour`;
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Đã xảy ra lỗi, vui lòng thử lại sau!");
+    }
+  });
+}

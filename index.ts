@@ -10,6 +10,7 @@ import session from "express-session";
 import flash from "express-flash";
 
 import cookieParser from 'cookie-parser';
+import methodOverride from 'method-override';
  
 dotenv.config();
 const app : Express = express() ;
@@ -32,6 +33,7 @@ app.use(
 );
 app.use(flash());
 app.use(cookieParser());
+app.use(methodOverride('_method'))
 // End Flash
 
 // parse application/json

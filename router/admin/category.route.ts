@@ -10,4 +10,8 @@ router.get("/", controller.index);
 router.get("/create" , controller.create);
 router.post("/create" ,upload.single("image") ,
 uploadSingle , controller.createPost);
+router.get("/edit/:id" , controller.edit);
+router.patch("/edit/:id" ,upload.single("image") ,
+uploadSingle , controller.editPatch)
+router.patch("/delete/:id" , controller.deleteCategory) ;
 export const categoryRoute = router;

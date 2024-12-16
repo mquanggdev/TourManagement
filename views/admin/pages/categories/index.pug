@@ -66,6 +66,6 @@ block main
                 ) Sửa
                 button(
                   class="btn btn-danger btn-sm ml-1"
-                  button-delete
+                  button-delete = `/${prefixAdmin}/categories/delete/${item.id}`
                   data-id=item.id
                 ) Xóa

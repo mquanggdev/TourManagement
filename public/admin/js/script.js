@@ -1,34 +1,46 @@
-// // thêm danh mục
-// const formCategoryCreate = document.querySelector("[form-category-create]") ;
-// if(formCategoryCreate) {
-//     formCategoryCreate.addEventListener("submit" , (event) => {
-//     event.preventDefault();
+// Upload Image
+const uploadImage = document.querySelector("[upload-image]");
+if(uploadImage) {
+  const uploadImageInput = uploadImage.querySelector("[upload-image-input]");
+  const uploadImagePreview = uploadImage.querySelector("[upload-image-preview]");
 
-//     const data = {
-//       title: formCategoryCreate.title.value,
-//       description : formCategoryCreate.description.value ,
-//       image : formCategoryCreate.image.value ,
-//       status : formCategoryCreate.status.value ,
-//       position : formCategoryCreate.position.value
-//     } 
-//     try {
-//       fetch("/admin/categories/create" , {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify(data)},
-        
-//       )
-//       .then(res => res.json())
-//       .then(data => {
-//         if(data.code == 200) {
-//           window.location.href = `/admin/categories`;
-//         }
-//       })
-//     } catch (error) {
-//       console.log(error);
-//     }
-    
-//   })
-// }
+  uploadImageInput.addEventListener("change", () => {
+    const file = uploadImageInput.files[0];
+    if(file) {
+      uploadImagePreview.src = URL.createObjectURL(file);
+    }
+  });
+}
+// End Upload Image
+
+// Xóa sản phẩm - bao gồm xóa vĩnh viễn và xóa mềm
+const buttonDelete = document.querySelectorAll("[button-delete]");
+if (buttonDelete.length > 0) {
+  buttonDelete.forEach(item => {
+    item.addEventListener("click", () => {
+      const link = item.getAttribute("button-delete");
+      if (link) {
+        fetch(link, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.code === 200) {
+            window.location.reload();
+          } else {
+            console.log ("Không thể xóa danh mục.");
+          }
+        })
+        .catch(error => {
+          console.error("Lỗi khi xóa danh mục:", error);
+          console.log("Có lỗi xảy ra khi xóa danh mục.");
+        });
+      }
+    });
+  });
+}
+
+// End Xóa sản phẩm

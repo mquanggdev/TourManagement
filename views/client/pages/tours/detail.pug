@@ -63,36 +63,82 @@ block main
         .col-12
           .inner-infomation
             .inner-label Bình luận từ khách hàng
-            .comment
-              .card.mb-3
-                .card-body
-                  .d-flex.align-items-center.mb-2
-                    .user-avatar.me-2
-                      img(src="" alt="Avatar" class="rounded-circle")
-                    .user-info
-                      strong.comment-username Khách hàng A
-                      div.comment-date.text-muted 22/11/2024
-                  .comment-content
-                    | Tour rất tuyệt vời! Mình đã có trải nghiệm đáng nhớ, dịch vụ rất chuyên nghiệp.
-            .comment
-              .card.mb-3
-                .card-body
-                  .d-flex.align-items-center.mb-2
-                    .user-avatar.me-2
-                      img(src="" alt="Avatar" class="rounded-circle")
-                    .user-info
-                      strong.comment-username Khách hàng B
-                      div.comment-date.text-muted 21/11/2024
-                  .comment-content
-                    | Chuyến đi khá thú vị, nhưng cần cải thiện thêm về thời gian di chuyển.
-            .comment
-              .card.mb-3
-                .card-body
-                  .d-flex.align-items-center.mb-2
-                    .user-avatar.me-2
-                      img(src="" alt="Avatar" class="rounded-circle")
-                    .user-info
-                      strong.comment-username Khách hàng C
-                      div.comment-date.text-muted 20/11/2024
-                  .comment-content
-                    | Hướng dẫn viên rất nhiệt tình và chu đáo. Chắc chắn sẽ tham gia lại lần sau.
+            .comments-section
+              .comments-list
+                .comment.card.mb-3
+                  .card-body
+                    .d-flex.align-items-center.mb-2
+                      .user-avatar.me-2
+                        img(src="https://via.placeholder.com/50" alt="Avatar" class="rounded-circle")
+                      .user-info
+                        strong.comment-username Khách hàng A
+                        div.comment-date.text-muted 22/11/2024
+                        .comment-rating
+                          each star in [1, 2, 3, 4, 5]
+                            i.fa-solid.fa-star(
+                              class=star <= 4 ? "text-warning" : "text-muted"
+                            )
+                    .comment-content
+                      | Tour rất tuyệt vời! Mình đã có trải nghiệm đáng nhớ, dịch vụ rất chuyên nghiệp.
+                    .comment-replies.mt-3
+                      .reply.card.mb-2.ms-5
+                        .card-body
+                          .d-flex.align-items-center.mb-2
+                            .user-avatar-reply.me-2
+                              img(src="https://via.placeholder.com/50" alt="Avatar" class="rounded-circle")
+                            .user-info-reply
+                              strong.reply-username Giám đốc C
+                              div.reply-date.text-muted 23/11/2024
+                          .reply-content
+                            | Cảm ơn bạn đã chia sẻ. Rất vui vì bạn hài lòng!
+                .comment.card.mb-3
+                  .card-body
+                    .d-flex.align-items-center.mb-2
+                      .user-avatar.me-2
+                        img(src="https://via.placeholder.com/50" alt="Avatar" class="rounded-circle")
+                      .user-info
+                        strong.comment-username Khách hàng B
+                        div.comment-date.text-muted 21/11/2024
+                        .comment-rating
+                          each star in [1, 2, 3, 4, 5]
+                            i.fa-solid.fa-star(
+                              class=star <= 3 ? "text-warning" : "text-muted"
+                            )
+                    .comment-content
+                      | Chuyến đi khá thú vị, nhưng cần cải thiện thêm về thời gian di chuyển.
+
+                    .comment-replies.mt-3
+                      .reply.card.mb-2.ms-5
+                        .card-body
+                          .d-flex.align-items-center.mb-2
+                            .user-avatar-reply.me-2
+                              img(src="https://via.placeholder.com/50" alt="Avatar" class="rounded-circle")
+                            .user-info-reply
+                              strong.reply-username Hướng dẫn viên D
+                              div.reply-date.text-muted 22/11/2024
+                          .reply-content
+                            | Cảm ơn bạn đã đóng góp ý kiến. Chúng tôi sẽ cải thiện trong các chuyến đi sau.
+              .add-comment-form.mt-4
+                h5 Viết bình luận của bạn
+                form(
+                  action="/comments/add"
+                  method="POST"
+                )
+                  .mb-3
+                    label(for="rating") Đánh giá:
+                    select.form-select(name="rating" required)
+                      option(value="5") 🌟🌟🌟🌟🌟
+                      option(value="4") 🌟🌟🌟🌟
+                      option(value="3") 🌟🌟🌟
+                      option(value="2") 🌟🌟
+                      option(value="1") 🌟
+                  .mb-3
+                    label(for="content") Nội dung bình luận:
+                    textarea.form-control(
+                      name="content"
+                      rows="3"
+                      placeholder="Viết bình luận của bạn ở đây..."
+                      required
+                    )
+                  button.btn.btn-success(type="submit") Gửi bình luận
+
